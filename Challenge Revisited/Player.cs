@@ -27,7 +27,7 @@ namespace Challenge_Revisited
             }
             else
             {
-                Console.Write("Invalid Movmeent");
+                Console.Write("Invalid Movement");
                 Console.ReadKey();
             }
         }
@@ -35,6 +35,11 @@ namespace Challenge_Revisited
         public void SetPlayerPositionLimit((int, int) boundary)
         {
             playerPositionLimit = boundary;
+        }
+
+        public (int,int) GetPlayerPosition()
+        {
+            return playerPosition;
         }
     }
 }

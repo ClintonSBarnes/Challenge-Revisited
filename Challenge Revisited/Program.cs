@@ -1,20 +1,19 @@
 ﻿using Challenge_Revisited;
-// See https://aka.ms/new-console-template for more information
+
 
 //main program runs here
 
-Board board = new Board();
-Menu menu = new Menu();
+GameSystem gameSystem = new GameSystem();
 InputManager inputManager = new InputManager();
-Player player = new Player();
+
+//beginning of game
+gameSystem.board.BoardBuilderAndValidation();
 
 
-//Build initial board posotions and board boundaries for the player. This will prevent the player from moving beyond the boundaries of the board. 
-board.BoardBuilder(inputManager.BoardDifficultyValidation());
-player.SetPlayerPositionLimit(board.GetBoundaries());
+//player movement - this will need to be called on every turn. 
+inputManager.InputIntake(gameSystem.GetBoundaryCheck());
 
 
-//Updates the player position
 
 
 

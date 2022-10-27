@@ -8,66 +8,33 @@ namespace Challenge_Revisited
 {
     internal class InputManager
     {
-        int boardDifficulty;
-        bool validDifficulty = false;
         string input;
         int inputType;
 
-        public int BoardDifficultyValidation()
+        public (int, int) PlayerMovement((bool, bool) playerBoundaryCheck)
         {
-            while (!validDifficulty)
-            {
-                DifficultySelectPrompt();
 
-                if (boardDifficulty == 1 || boardDifficulty == 2 || boardDifficulty == 3)
-                {
-                    validDifficulty = true;
-                }
-                else
-                {
-                    Console.WriteLine("You have entered an invalid input. Press any key to continue.");
-                    Console.ReadKey();
-                }
-            }
-            return boardDifficulty;
-        }
-
-        public void DifficultySelectPrompt()
-        {
-            int userSelection = 0;
-            string rawInputText;
-            Console.Write("Select difficulty level. Easy = 1, Medium = 2, Hard = 3: ");
-            rawInputText = Console.ReadLine();
-            boardDifficulty = (Int32.Parse(rawInputText));
-        }
-
-        public int GetBoardDifficulty()
-        {
-            return boardDifficulty;
-        }
-
-        public void SetBoardDifficulty(int input)
-        {
-            boardDifficulty = input;
-        }
-
-        public (int, int) PlayerMovement()
-        {
-            if (input.ToUpper() == "W")
+            if (input.ToUpper() == "W" && !playerBoundaryCheck.Item2)
             {
                 return (0, 1);
             }
-            else if (input.ToUpper() == "S")
+            else if (input.ToUpper() == "S" && !playerBoundaryCheck.Item2)
             {
                 return (0, -1);
             }
-            else if (input.ToUpper() == "A")
+            else if (input.ToUpper() == "A" && !playerBoundaryCheck.Item1)
             {
                 return (-1, 0);
             }
-            else if (input.ToUpper() == "D")
+            else if (input.ToUpper() == "D" && !playerBoundaryCheck.Item1)
             {
                 return (1, 0);
+            }
+            else if (input.ToUpper() == "W" && playerBoundaryCheck.Item2 || input.ToUpper() == "S" && playerBoundaryCheck.Item2 ||
+                input.ToUpper() == "A" && playerBoundaryCheck.Item1 || input.ToUpper() == "D" && playerBoundaryCheck.Item1)
+            {
+                Console.WriteLine("You are against a wall. You cannot make that move.");
+                return (0, 0);
             }
             else
             {
@@ -76,11 +43,11 @@ namespace Challenge_Revisited
         }
 
         //This handles all inputs and directs them to the appropriate method to perform;
-        public void InputIntake()
+        public void InputIntake((bool, bool) playerBoundaryCheck)//this will need to intake the GameSystem Function "GetBoundaryCheck" when called.
         {
             if (input.ToUpper() == "W" || input.ToUpper() == "A" || input.ToUpper() == "S" || input.ToUpper() == "D")
             {
-                PlayerMovement();
+                PlayerMovement(playerBoundaryCheck);
             }
         }
 

@@ -8,9 +8,12 @@ namespace Challenge_Revisited
 {
     internal class GameSystem
     {
-        //objectintake
+        //object intake
         public Board board;
         public Player player;
+
+        //general game 
+        bool playing = true;
 
         //these bools will serve as a check if the player is at a boundary of the board. 
         (bool,bool) boundLimit;
@@ -68,6 +71,16 @@ namespace Challenge_Revisited
         public (bool,bool) GetBoundaryCheck()
         {
             return boundLimit;
+        }
+
+        public bool GetPlaying()
+        {
+            return playing;
+        }
+
+        public void SetPlayerPosition((int,int) intake)
+        {
+            playerPosition = intake;
         }
     }
 }
